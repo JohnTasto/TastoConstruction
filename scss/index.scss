@@ -1,0 +1,115 @@
+@import "normalize";
+
+// box-shadow [inset] x y blur [spread] color
+
+$px-only: false;
+
+$frame-color: #fffff7;
+
+$roof-height:          ( px:  512px, vmin:  64vmin );
+$roof-trim-height:     ( px:   40px, vmin:   4vmin );
+$roof-spacing:         ( px:  150px, vmin:  20vmin );
+
+$window-height:        ( px:  640px, vmin:  90vmin );
+$window-width:         ( pcnt: 80% ,   vw:  80vw   );
+$window-radius:        ( px:    2px,  rem: .15rem  );
+$window-spacing:       ( px:  200px, vmin:  30vmin );
+
+@mixin vhify($rule, $length, $multiplier: 1) {
+  @if map-has-key($length, px) {
+    #{$rule}: map-get($length, px) * $multiplier;
+  }
+  @if map-has-key($length, pcnt) {
+    #{$rule}: map-get($length, pcnt) * $multiplier;
+  }
+  @if $px-only == false {
+    @if map-has-key($length, vw) {
+      #{$rule}: map-get($length, vw) * $multiplier;
+    }
+    @if map-has-key($length, vh) {
+      #{$rule}: map-get($length, vh) * $multiplier;
+    }
+    @if map-has-key($length, vmin) {
+      #{$rule}: map-get($length, vmin) / 1vmin * 1vm * $multiplier;
+      #{$rule}: map-get($length, vmin) * $multiplier;
+    }
+    @if map-has-key($length, rem) {
+      #{$rule}: map-get($length, rem) * $multiplier;
+    }
+  }
+}
+
+body {
+  background: url(../public/img/shingles.jpg) repeat;
+  background-size: 244px;
+}
+
+.roofing-solid {
+  position: relative;
+  @include vhify("height", $roof-height, 63/64);
+  background: url(../public/img/roofing-solid.jpg) repeat-x;
+  background-size: contain;
+  z-index: 1;
+}
+
+.roofing-trans {
+  position: relative;
+  @include vhify("height", $roof-height, 1/64);
+  background: url(../public/img/roofing-trans.png) repeat-x;
+  background-size: contain;
+  z-index: 1;
+}
+
+.roofing-trim {
+  position: relative;
+  @include vhify("top", $roof-trim-height, -1);
+  @include vhify("height", $roof-trim-height, 2);
+  background: $frame-color;
+  box-shadow: 0 5vh 5em 5em rgba(0,0,0,.5), inset 0 3em 2em -1em rgba(0,0,0,.5);
+  @include vhify("margin-bottom", $roof-spacing)
+}
+
+.window-frame {
+  position: relative;
+  margin: 0 auto;
+  @include vhify("width", $window-width)
+  @include vhify("height", $window-height)
+  // width: 80vw;
+  // height: 90vh;
+  background: $frame-color;
+  box-shadow: 0 1vh 4em black;
+  @include vhify("border-radius", $window-radius)
+  @include vhify("margin-bottom", $window-spacing)
+}
+
+.window-top {
+  position: absolute;
+  left: -2%;
+  top: 0;
+  width: 104%;
+  height: 2%;
+  background: $frame-color;
+  box-shadow: 0 1vh 4em black;
+  @include vhify("border-radius", $window-radius)
+}
+
+.window-bottom {
+  position: absolute;
+  left: -2%;
+  top: 85%;
+  width: 104%;
+  height: 4%;
+  background: $frame-color;
+  box-shadow: 0 1vh 4em black;
+  @include vhify("border-radius", $window-radius)
+}
+
+.window-contents {
+  position: absolute;
+  left: 5%;
+  top: 15%;
+  width: 90%;
+  height: 70%;
+  background: black;
+  @include vhify("border-radius", $window-radius)
+}
