@@ -22,6 +22,7 @@ $window-radius:      .15rem;
 $window-spacing-fb:   200px;
 $window-spacing:       30vh;
 
+$window-expand-width: 480px;
 
 body {
   background: url(../../public/img/shingles.jpg) repeat;
@@ -73,6 +74,10 @@ body {
   border-radius: $window-radius;
   @if $enhance { margin-bottom: $window-spacing-fb; }
   margin-bottom: $window-spacing;
+  @media (max-width: $window-expand-width) and (orientation: portrait) {
+    width: 111.111%;
+    left: -5.555555%;
+  }
 }
 
 .window-top {
