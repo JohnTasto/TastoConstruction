@@ -2,42 +2,26 @@
 
 // box-shadow [inset] x y blur [spread] color
 
-$px-only: false;
+$enhance: false;
 
 $frame-color: #fffff7;
 
-$roof-height:          ( px:  512px, vmin:  64vmin );
-$roof-trim-height:     ( px:   40px, vmin:   4vmin );
-$roof-spacing:         ( px:  150px, vmin:  20vmin );
+$roof-height-fb:      512px;
+$roof-height:          64vh;
+$roof-trim-height-fb:  64px;
+$roof-trim-height:      8vh;
+$roof-spacing-fb:     150px;
+$roof-spacing:         20vh;
 
-$window-height:        ( px:  640px, vmin:  90vmin );
-$window-width:         ( pcnt: 80% ,   vw:  80vw   );
-$window-radius:        ( px:    2px,  rem: .15rem  );
-$window-spacing:       ( px:  200px, vmin:  30vmin );
+$window-height-fb:    640px;
+$window-height:        90vh;
+$window-width-fb:       80%;
+$window-width:         80vw;
+$window-radius-fb:      2px;
+$window-radius:      .15rem;
+$window-spacing-fb:   200px;
+$window-spacing:       30vh;
 
-@mixin vhify($rule, $length, $multiplier: 1) {
-  @if map-has-key($length, px) {
-    #{$rule}: map-get($length, px) * $multiplier;
-  }
-  @if map-has-key($length, pcnt) {
-    #{$rule}: map-get($length, pcnt) * $multiplier;
-  }
-  @if $px-only == false {
-    @if map-has-key($length, vw) {
-      #{$rule}: map-get($length, vw) * $multiplier;
-    }
-    @if map-has-key($length, vh) {
-      #{$rule}: map-get($length, vh) * $multiplier;
-    }
-    @if map-has-key($length, vmin) {
-      #{$rule}: map-get($length, vmin) / 1vmin * 1vm * $multiplier;
-      #{$rule}: map-get($length, vmin) * $multiplier;
-    }
-    @if map-has-key($length, rem) {
-      #{$rule}: map-get($length, rem) * $multiplier;
-    }
-  }
-}
 
 body {
   background: url(../../public/img/shingles.jpg) repeat;
@@ -46,40 +30,49 @@ body {
 
 .roofing-solid {
   position: relative;
-  @include vhify("height", $roof-height, 63/64);
+  height: $roof-height-fb*63/64;
+  @if $enhance { height: $roof-height*63/64; }
   background: url(../../public/img/roofing-solid.jpg) repeat-x;
-  background-size: contain;
+  background-size: auto $roof-height-fb*63/64;
+  @if $enhance { background-size: auto $roof-height*63/64; }
   z-index: 1;
 }
 
 .roofing-trans {
   position: relative;
-  @include vhify("height", $roof-height, 1/64);
+  height: $roof-height-fb/64;
+  @if $enhance { height: $roof-height/64; }
   background: url(../../public/img/roofing-trans.png) repeat-x;
-  background-size: contain;
+  background-size: auto $roof-height-fb/64;
+  @if $enhance { background-size: auto $roof-height/64; }
   z-index: 1;
 }
 
 .roofing-trim {
   position: relative;
-  @include vhify("top", $roof-trim-height, -1);
-  @include vhify("height", $roof-trim-height, 2);
+  top: $roof-height-fb / -64;
+  @if $enhance { top: $roof-height / -64; }
+  height: $roof-trim-height-fb;
+  @if $enhance { height: $roof-trim-height; }
   background: $frame-color;
   box-shadow: 0 5vh 5em 5em rgba(0,0,0,.5), inset 0 3em 2em -1em rgba(0,0,0,.5);
-  @include vhify("margin-bottom", $roof-spacing)
+  margin-bottom: $roof-spacing-fb;
+  @if $enhance { margin-bottom: $roof-spacing; }
 }
 
 .window-frame {
   position: relative;
   margin: 0 auto;
-  @include vhify("width", $window-width)
-  @include vhify("height", $window-height)
-  // width: 80vw;
-  // height: 90vh;
+  width: $window-width-fb;
+  @if $enhance { width: $window-width; }
+  height: $window-height-fb;
+  @if $enhance { height: $window-height; }
   background: $frame-color;
   box-shadow: 0 1vh 4em black;
-  @include vhify("border-radius", $window-radius)
-  @include vhify("margin-bottom", $window-spacing)
+  @if $enhance { border-radius: $window-radius-fb; }
+  border-radius: $window-radius;
+  @if $enhance { margin-bottom: $window-spacing-fb; }
+  margin-bottom: $window-spacing;
 }
 
 .window-top {
@@ -90,7 +83,8 @@ body {
   height: 2%;
   background: $frame-color;
   box-shadow: 0 1vh 4em black;
-  @include vhify("border-radius", $window-radius)
+  border-radius: $window-radius-fb;
+  @if $enhance { border-radius: $window-radius; }
 }
 
 .window-bottom {
@@ -101,7 +95,8 @@ body {
   height: 4%;
   background: $frame-color;
   box-shadow: 0 1vh 4em black;
-  @include vhify("border-radius", $window-radius)
+  border-radius: $window-radius-fb;
+  @if $enhance { border-radius: $window-radius; }
 }
 
 .window-contents {
@@ -111,5 +106,6 @@ body {
   width: 90%;
   height: 70%;
   background: black;
-  @include vhify("border-radius", $window-radius)
+  border-radius: $window-radius-fb;
+  @if $enhance { border-radius: $window-radius; }
 }
