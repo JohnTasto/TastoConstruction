@@ -40,14 +40,14 @@ $window-spacing:       ( px:  200px, vmin:  30vmin );
 }
 
 body {
-  background: url(../public/img/shingles.jpg) repeat;
+  background: url(../../public/img/shingles.jpg) repeat;
   background-size: 244px;
 }
 
 .roofing-solid {
   position: relative;
   @include vhify("height", $roof-height, 63/64);
-  background: url(../public/img/roofing-solid.jpg) repeat-x;
+  background: url(../../public/img/roofing-solid.jpg) repeat-x;
   background-size: contain;
   z-index: 1;
 }
@@ -55,7 +55,7 @@ body {
 .roofing-trans {
   position: relative;
   @include vhify("height", $roof-height, 1/64);
-  background: url(../public/img/roofing-trans.png) repeat-x;
+  background: url(../../public/img/roofing-trans.png) repeat-x;
   background-size: contain;
   z-index: 1;
 }
