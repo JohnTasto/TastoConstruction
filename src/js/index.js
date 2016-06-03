@@ -1,3 +1,5 @@
 require('../scss/index.scss')
 
-console.log('yay');
+require('gsap')
+require('scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap')
+require('scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators')

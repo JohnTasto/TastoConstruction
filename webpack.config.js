@@ -22,6 +22,14 @@ module.exports = {
         loader: 'babel',
       },
       {
+        test: /\.(js)$/,
+        include: [
+          /node_modules\/gsap/,
+          /node_modules\/scrollmagic/,
+        ],
+        loader: 'imports?define=>false',
+      },
+      {
         test: /\.css$/,
         exclude: /node_modules/,
         loader: 'style!css!autoprefixer',
