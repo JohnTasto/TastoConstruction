@@ -10,6 +10,10 @@ $trim-radius:         .15rem;
 
 $roof-trim-height-fb:   64px;
 $roof-trim-height:       8vh;
+$brick-trim-height-fb:  32px;
+$brick-trim-height:      4vh;
+$brick-offset-fb:      280px;
+$brick-offset:          45vh;
 
 $roof-height-fb:       512px;
 $roof-height:           64vh;
@@ -21,10 +25,10 @@ $window-height:         85vh;
 $garage-height-fb:     760px;
 $garage-height:         95vh;
 
-$container-spacing-fb: 240px;
-$container-spacing:     30vh;
 $container-width-fb:     80%;
 $container-width:       80vw;
+$container-spacing-fb: 240px;
+$container-spacing:     30vh;
 
 $expand-width:         480px;
 
@@ -72,8 +76,6 @@ body {
   @if $enhance { width: $container-width; }
   background: $trim-color;
   box-shadow: 0 1vh 4em black;
-  @if $enhance { border-radius: $trim-radius-fb; }
-  border-radius: $trim-radius;
   @media (max-width: $expand-width) and (orientation: portrait) {
     width: 111.1111%;
     left: -5.555555%;
@@ -86,6 +88,8 @@ body {
   @if $enhance { height: $window-height; }
   margin-bottom: $container-spacing-fb;
   @if $enhance { margin-bottom: $container-spacing; }
+  border-radius: $trim-radius-fb;
+  @if $enhance { border-radius: $trim-radius; }
 }
 
 .garage-frame {
@@ -167,4 +171,30 @@ body {
 .garage-contents {
   @include container-contents;
   height: 85%;
+}
+
+.garage {
+  position: relative;
+}
+
+.brick-trim {
+  position: absolute;
+  top: $brick-offset;
+  width: 100%;
+  height: $brick-trim-height-fb;
+  @if $enhance { height: $brick-trim-height; }
+  background: $trim-color;
+  box-shadow: 0 1vh 4em black;
+  // box-shadow: 0 5vh 5em 5em rgba(0,0,0,.5), inset 0 3em 2em -1em rgba(0,0,0,.5);
+}
+
+.brick {
+  position: absolute;
+  top: $brick-offset-fb;
+  @if $enhance { top: $brick-offset; }
+  width: 100%;
+  height: $garage-height-fb - $brick-offset-fb;
+  @if $enhance { height: $garage-height - $brick-offset; }
+  background: url(../../public/img/brick.jpg) repeat;
+  background-size: 512px;
 }
