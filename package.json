@@ -24,7 +24,6 @@
     "webpack": "^1.12.14"
   },
   "dependencies": {
-    "gsap": "^1.18.5",
-    "scrollmagic": "^2.0.5"
+    "animation-frame": "^0.3.0"
   }
 }
