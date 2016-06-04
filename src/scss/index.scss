@@ -2,27 +2,31 @@
 
 // box-shadow [inset] x y blur [spread] color
 
-$enhance: false;
+$enhance: true;
 
-$frame-color: #fffff7;
+$trim-color:         #fffff7;
+$trim-radius-fb:         2px;
+$trim-radius:         .15rem;
 
-$roof-height-fb:      512px;
-$roof-height:          64vh;
-$roof-trim-height-fb:  64px;
-$roof-trim-height:      8vh;
-$roof-spacing-fb:     150px;
-$roof-spacing:         20vh;
+$roof-trim-height-fb:   64px;
+$roof-trim-height:       8vh;
 
-$window-height-fb:    640px;
-$window-height:        90vh;
-$window-width-fb:       80%;
-$window-width:         80vw;
-$window-radius-fb:      2px;
-$window-radius:      .15rem;
-$window-spacing-fb:   200px;
-$window-spacing:       30vh;
+$roof-height-fb:       512px;
+$roof-height:           64vh;
+$roof-spacing-fb:      150px;
+$roof-spacing:          20vh;
 
-$window-expand-width: 480px;
+$window-height-fb:     680px;
+$window-height:         85vh;
+$garage-height-fb:     760px;
+$garage-height:         95vh;
+
+$container-spacing-fb: 240px;
+$container-spacing:     30vh;
+$container-width-fb:     80%;
+$container-width:       80vw;
+
+$expand-width:         480px;
 
 body {
   background: url(../../public/img/shingles.jpg) repeat;
@@ -55,41 +59,52 @@ body {
   @if $enhance { top: $roof-height / -64; }
   height: $roof-trim-height-fb;
   @if $enhance { height: $roof-trim-height; }
-  background: $frame-color;
+  background: $trim-color;
   box-shadow: 0 5vh 5em 5em rgba(0,0,0,.5), inset 0 3em 2em -1em rgba(0,0,0,.5);
   margin-bottom: $roof-spacing-fb;
   @if $enhance { margin-bottom: $roof-spacing; }
 }
 
-.window-frame {
+@mixin container-frame {
   position: relative;
   margin: 0 auto;
-  width: $window-width-fb;
-  @if $enhance { width: $window-width; }
-  height: $window-height-fb;
-  @if $enhance { height: $window-height; }
-  background: $frame-color;
+  width: $container-width-fb;
+  @if $enhance { width: $container-width; }
+  background: $trim-color;
   box-shadow: 0 1vh 4em black;
-  @if $enhance { border-radius: $window-radius-fb; }
-  border-radius: $window-radius;
-  @if $enhance { margin-bottom: $window-spacing-fb; }
-  margin-bottom: $window-spacing;
-  @media (max-width: $window-expand-width) and (orientation: portrait) {
-    width: 111.111%;
+  @if $enhance { border-radius: $trim-radius-fb; }
+  border-radius: $trim-radius;
+  @media (max-width: $expand-width) and (orientation: portrait) {
+    width: 111.1111%;
     left: -5.555555%;
   }
 }
 
-.window-top {
+.window-frame {
+  @include container-frame;
+  height: $window-height-fb;
+  @if $enhance { height: $window-height; }
+  margin-bottom: $container-spacing-fb;
+  @if $enhance { margin-bottom: $container-spacing; }
+}
+
+.garage-frame {
+  @include container-frame;
+  height: $garage-height-fb;
+  @if $enhance { height: $garage-height; }
+}
+
+.window-top,
+.garage-top {
   position: absolute;
   left: -2%;
   top: 0;
   width: 104%;
   height: 2%;
-  background: $frame-color;
+  background: $trim-color;
   box-shadow: 0 1vh 4em black;
-  border-radius: $window-radius-fb;
-  @if $enhance { border-radius: $window-radius; }
+  border-radius: $trim-radius-fb;
+  @if $enhance { border-radius: $trim-radius; }
 }
 
 .window-bottom {
@@ -98,26 +113,25 @@ body {
   top: 85%;
   width: 104%;
   height: 4%;
-  background: $frame-color;
+  background: $trim-color;
   box-shadow: 0 1vh 4em black;
-  border-radius: $window-radius-fb;
-  @if $enhance { border-radius: $window-radius; }
+  border-radius: $trim-radius-fb;
+  @if $enhance { border-radius: $trim-radius; }
 }
 
-.window-contents {
+@mixin container-contents {
   position: absolute;
   left: 5%;
   top: 15%;
   width: 90%;
-  height: 70%;
-  border-radius: $window-radius-fb;
-  @if $enhance { border-radius: $window-radius; }
+  border-radius: $trim-radius-fb;
+  @if $enhance { border-radius: $trim-radius; }
   overflow: hidden;
 
   p {
     position: relative;
     z-index: 1;
-    color: $frame-color;
+    color: $trim-color;
     font-size: 1.5em;
     text-shadow: 0em 0em .5em black;
     text-align: center;
@@ -134,7 +148,7 @@ body {
     transform: translateX(-50%);
   }
 
-  .window-inner-shadow {
+  .contents-inner-shadow {
     position: absolute;
     top: 0;
     left: 0;
@@ -143,4 +157,14 @@ body {
     z-index: 2;
     box-shadow: inset 0 5vh 10em rgba(#000,.5);
   }
+}
+
+.window-contents {
+  @include container-contents;
+  height: 70%;
+}
+
+.garage-contents {
+  @include container-contents;
+  height: 85%;
 }

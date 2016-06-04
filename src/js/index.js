@@ -7,8 +7,8 @@ let windowHeight = window.innerHeight
 let windowMidY = windowHeight / 2
 let scrollY = 0
 let hasRequestedFrame = false
-const photos = document.querySelectorAll('.window-contents img')
-const blurbs = document.querySelectorAll('.window-contents p')
+const photos = document.querySelectorAll('.window-contents img, .garage-contents img')
+const blurbs = document.querySelectorAll('.window-contents p, .garage-contents p')
 
 function updatePositions() {
   let scrollCenterY = scrollY + windowHeight
