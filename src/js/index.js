@@ -1,5 +1,7 @@
 require('../scss/index.scss')
 
+import 'babel-polyfill'
+
 import AnimationFrame from 'animation-frame'
 const animationFrame = new AnimationFrame()
 

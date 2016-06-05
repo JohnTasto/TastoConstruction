@@ -24,6 +24,7 @@
     "webpack": "^1.12.14"
   },
   "dependencies": {
-    "animation-frame": "^0.3.0"
+    "animation-frame": "^0.3.0",
+    "babel-polyfill": "^6.9.1"
   }
 }
