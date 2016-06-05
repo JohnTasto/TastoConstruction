@@ -12,7 +12,7 @@ $roof-trim-height-fb:   64px;
 $roof-trim-height:       8vh;
 $brick-trim-height-fb:  32px;
 $brick-trim-height:      4vh;
-$brick-offset-fb:      280px;
+$brick-offset-fb:      360px;
 $brick-offset:          45vh;
 
 $roof-height-fb:       512px;
@@ -180,12 +180,12 @@ body {
 .brick-trim {
   position: absolute;
   top: $brick-offset;
-  width: 100%;
+  width: 110%;
+  left: -5%;
   height: $brick-trim-height-fb;
   @if $enhance { height: $brick-trim-height; }
   background: $trim-color;
   box-shadow: 0 1vh 4em black;
-  // box-shadow: 0 5vh 5em 5em rgba(0,0,0,.5), inset 0 3em 2em -1em rgba(0,0,0,.5);
 }
 
 .brick {
