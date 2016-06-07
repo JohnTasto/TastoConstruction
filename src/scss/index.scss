@@ -132,8 +132,9 @@ body {
   border-radius: $trim-radius-fb;
   @if $enhance { border-radius: $trim-radius; }
   overflow: hidden;
+  margin: 0;
 
-  p {
+  figcaption {
     position: relative;
     z-index: 1;
     color: $trim-color;
