@@ -5,24 +5,19 @@ import 'babel-polyfill'
 import AnimationFrame from 'animation-frame'
 const animationFrame = new AnimationFrame()
 
-let windowHeight = window.innerHeight
-let windowMidY = windowHeight / 2
-let scrollY = 0
-let hasRequestedFrame = false
+let windowHeight, windowHalfHeight
 const photos = document.querySelectorAll('.window-contents img, .garage-contents img')
 const blurbs = document.querySelectorAll('.window-contents p, .garage-contents p')
+handleResize()
+let hasRequestedFrame = false
 
 function updatePositions() {
-  let scrollCenterY = scrollY + windowHeight
+  let sY = scrollY()
   for (let photo of photos) {
-    let bounds = photo.getBoundingClientRect()
-    let photoCenterY = (bounds.top + bounds.bottom) / 2
-    translate(photo, '-50%', `${-(photoCenterY - windowMidY) / 2}px`)
+    translate(photo, '-50%', `${-((photo._centerY - sY) - windowHalfHeight) / 2}px`)
   }
   for (let blurb of blurbs) {
-    let bounds = blurb.getBoundingClientRect()
-    let blurbCenterY = (bounds.top + bounds.bottom) / 2
-    translate(blurb, '0px', `${-(blurbCenterY - windowMidY) / 4}px`)
+    translate(blurb, '0px', `${-((blurb._centerY - sY) - windowHalfHeight) / 4}px`)
   }
   hasRequestedFrame = false
 }
@@ -36,21 +31,30 @@ function translate(elm, x, y) {
   elm.style.transform = translate
 }
 
-function requestFrame() {
+function scrollY() {
+  return window.scrollY || window.pageYOffset
+}
+
+function handleScroll() {
   if (!hasRequestedFrame) {
     animationFrame.request(updatePositions)
     hasRequestedFrame = true
   }
 }
 
-function handleScroll() {
-  scrollY = window.pageYOffset
-  requestFrame()
-}
-
 function handleResize() {
   windowHeight = window.innerHeight
-  windowMidY = windowHeight / 2
+  windowHalfHeight = windowHeight / 2
+  let sY = scrollY()
+  for (let photo of photos) {
+    let bounds = photo.getBoundingClientRect()
+    photo._centerY = sY + ((bounds.top + bounds.bottom) / 2)
+  }
+  for (let blurb of blurbs) {
+    let bounds = blurb.getBoundingClientRect()
+    blurb._centerY = sY + ((bounds.top + bounds.bottom) / 2)
+  }
+  handleScroll()
 }
 
 let initialized = false
