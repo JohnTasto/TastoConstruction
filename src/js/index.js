@@ -23,17 +23,19 @@ function updatePositions() {
     translate(photo, '-50%', `${-((photo._centerY - sY) - windowHalfHeight) / 2}px`)
   }
   for (let blurb of blurbs) {
-    translate(blurb, '0px', `${-((blurb._centerY - sY) - windowHalfHeight) / 4}px`)
+    let distToScreenCenter = (blurb._centerY - sY) - windowHalfHeight
+    let distToScreenCenterCubed = distToScreenCenter * distToScreenCenter * distToScreenCenter
+    translate(blurb, `${-distToScreenCenterCubed/2000000}%`, `${-distToScreenCenter / 4}px`)
   }
   hasRequestedFrame = false
 }
 
 function resetPositions() {
   for (let photo of photos) {
-    translate(photo, '-50%', '0px')
+    translate(photo, '-50%', '0')
   }
   for (let blurb of blurbs) {
-    translate(blurb, '0px', '0px')
+    translate(blurb, '0', '0')
   }
 }
 
