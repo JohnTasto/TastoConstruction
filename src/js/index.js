@@ -24,8 +24,10 @@ function updatePositions() {
   }
   for (let blurb of blurbs) {
     let distToScreenCenter = (blurb._centerY - sY) - windowHalfHeight
-    let distToScreenCenterCubed = distToScreenCenter * distToScreenCenter * distToScreenCenter
-    translate(blurb, `${-distToScreenCenterCubed/2000000}%`, `${-distToScreenCenter / 4}px`)
+    let distToScreenCenterSquared = distToScreenCenter * distToScreenCenter
+    let distToScreenCenterCubed = distToScreenCenterSquared * distToScreenCenter
+    translate(blurb, `${-distToScreenCenterCubed/4000000}%`, `${-distToScreenCenter / 4}px`)
+    blurb.style.opacity = 1 - distToScreenCenterSquared/200000
   }
   hasRequestedFrame = false
 }
